@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DPOC Tools</title>
+    <link
+      rel="icon"
+      href="https://www.dpoconsultancy.com/wp-content/uploads/2024/03/DPO_logo.svg"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --green-600: #0e8a5f;
+        --green-500: #14a874;
+        --green-100: #e7f6ef;
+        --gray-900: #0f172a;
+        --gray-700: #334155;
+        --gray-500: #64748b;
+        --gray-200: #e2e8f0;
+        --gray-100: #f1f5f9;
+        --white: #ffffff;
+        --border: 1px solid var(--gray-200);
+        --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+        --success-100: #e7f8ef;
+        --success-700: #136a47;
+        --error-100: #feeceb;
+        --error-700: #a11f1f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        background: radial-gradient(circle at 20% 20%, #f3fbf6 0, #f8fafc 40%);
+        color: var(--gray-900);
+        line-height: 1.45;
+      }
+
+      a {
+        color: var(--green-600);
+      }
+
+      .page-shell {
+        min-height: 100vh;
+      }
+
+      header {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.8);
+        border-bottom: var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .topbar {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .brand img {
+        width: 150px;
+        height: auto;
+      }
+
+      .title {
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .pill {
+        background: var(--green-100);
+        color: var(--green-600);
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      .dropdown {
+        position: relative;
+      }
+
+      .dropdown button {
+        border: var(--border);
+        background: var(--white);
+        color: var(--gray-900);
+        padding: 10px 14px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        min-width: 140px;
+        box-shadow: var(--shadow);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .dropdown-content {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 8px);
+        background: var(--white);
+        border: var(--border);
+        border-radius: 12px;
+        min-width: 180px;
+        box-shadow: var(--shadow);
+        display: none;
+        overflow: hidden;
+      }
+
+      .dropdown.open .dropdown-content {
+        display: block;
+      }
+
+      .dropdown-content a {
+        display: block;
+        padding: 12px 14px;
+        text-decoration: none;
+        color: var(--gray-900);
+        font-weight: 500;
+      }
+
+      .dropdown-content a:hover {
+        background: var(--gray-100);
+      }
+
+      .main {
+        max-width: 1200px;
+        margin: 24px auto;
+        padding: 0 24px 32px;
+      }
+
+      .hero {
+        background: linear-gradient(120deg, #f6fffa, #ecf8f2);
+        border: var(--border);
+        border-radius: 16px;
+        padding: 20px 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero h1 {
+        margin: 0 0 8px;
+        font-size: 1.6rem;
+        color: var(--green-600);
+      }
+
+      .hero p {
+        margin: 0;
+        color: var(--gray-700);
+        line-height: 1.5;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .card {
+        background: var(--white);
+        border: var(--border);
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        padding: 18px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 35px rgba(15, 23, 42, 0.1);
+      }
+
+      .section h2 {
+        margin: 0 0 4px;
+        color: var(--green-600);
+        font-size: 1.1rem;
+      }
+
+      .section p {
+        margin: 0 0 12px;
+        color: var(--gray-700);
+      }
+
+      .section + .section {
+        margin-top: 14px;
+      }
+
+      .radio-group label {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        margin-bottom: 8px;
+        color: var(--gray-900);
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 70px;
+        padding: 10px;
+        border: var(--border);
+        border-radius: 12px;
+        resize: vertical;
+        font-family: inherit;
+      }
+
+      .dpc-table table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+      }
+
+      .dpc-table th,
+      .dpc-table td {
+        border: var(--border);
+        padding: 10px;
+        text-align: left;
+        font-size: 0.95rem;
+      }
+
+      .dpc-table tr {
+        cursor: pointer;
+      }
+
+      .dpc-table tr:hover {
+        background: var(--gray-100);
+      }
+
+      .dpc-table tr.selected {
+        background: var(--green-100);
+        font-weight: 700;
+        box-shadow: inset 3px 0 0 var(--green-600);
+      }
+
+      .risk-summary h2 {
+        margin: 0 0 10px;
+        color: var(--green-600);
+      }
+
+      .risk-summary table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+      .risk-summary th,
+      .risk-summary td {
+        border: var(--border);
+        padding: 10px;
+        text-align: left;
+        font-size: 0.95rem;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .chip {
+        background: var(--gray-100);
+        color: var(--gray-700);
+        padding: 8px 10px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .risk-summary {
+        position: sticky;
+        top: 92px;
+        align-self: start;
+      }
+
+      .formula {
+        background: var(--gray-100);
+        border-radius: 10px;
+        padding: 8px 10px;
+        font-weight: 600;
+      }
+
+      .result-badge {
+        margin-top: 14px;
+        padding: 10px 12px;
+        background: #f8fafc;
+        border: var(--border);
+        border-radius: 12px;
+      }
+
+      .generate-report {
+        background: linear-gradient(120deg, var(--green-600), var(--green-500));
+        color: var(--white);
+        border: none;
+        padding: 12px 16px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 700;
+        width: 100%;
+        margin-top: 14px;
+        box-shadow: var(--shadow);
+      }
+
+      .generate-report:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+      }
+
+      .status-message {
+        margin-top: 10px;
+        border-radius: 10px;
+        padding: 10px 12px;
+        font-size: 0.9rem;
+        display: none;
+      }
+
+      .status-message.success {
+        background: var(--success-100);
+        color: var(--success-700);
+        display: block;
+      }
+
+      .status-message.error {
+        background: var(--error-100);
+        color: var(--error-700);
+        display: block;
+      }
+
+      button:focus-visible,
+      a:focus-visible,
+      textarea:focus-visible,
+      input:focus-visible {
+        outline: 3px solid rgba(20, 168, 116, 0.35);
+        outline-offset: 2px;
+      }
+
+      .pma-notice {
+        background: #fff7e6;
+        border: 1px solid #ffe8bf;
+        color: #a36b00;
+        padding: 12px;
+        border-radius: 12px;
+        margin-top: 12px;
+      }
+
+      @media (max-width: 960px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .topbar {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+        .actions {
+          width: 100%;
+        }
+        .actions .dropdown button {
+          width: 100%;
+        }
+
+        .risk-summary {
+          position: static;
+        }
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header>
+        <div class="topbar">
+          <div class="brand">
+            <img
+              src="https://cdn.prod.website-files.com/6915c2db0622b3aa00c190fc/6915d16d64fd7bfac715d03f_logo.svg"
+              alt="DPO Consultancy Logo"
+            />
+            <div class="title">Data Breach Severity Calculator</div>
+          </div>
+          <div class="actions">
+            <span class="pill">DPOC Tools</span>
+            <div class="dropdown" id="pmaDropdown">
+              <button type="button" id="pmaDropdownButton">PMA 09 ▼</button>
+              <div class="dropdown-content" id="pmaMenu"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="main">
+        <section class="hero">
+          <h1>Risk assessment made simple</h1>
+          <p>
+            Follow the ENISA methodology to evaluate breach severity. Select the data type, choose scores, and
+            capture your reasoning. Then download a polished PDF report.
+            See the
+            <a href="https://www.enisa.europa.eu/publications/dbn-severity" target="_blank" rel="noopener noreferrer">ENISA report</a>
+            for full guidance.
+          </p>
+        </section>
+
+        <div id="pmaNotice" class="pma-notice" style="display: none;">
+          Please select PMA 09 to use the Data Breach Severity Calculator.
+        </div>
+
+        <div id="mainContent" class="grid">
+          <div class="card">
+            <div class="section">
+              <h2>Data Processing Context (DPC)</h2>
+              <p>DPC represents the type of data involved in the breach.</p>
+              <label class="question">Select the data type:</label>
+              <div class="radio-group" id="dpcRadioGroup"></div>
+              <div class="dpc-table">
+                <table id="dpcTable">
+                  <thead>
+                    <tr>
+                      <th>Score</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <label class="question" for="dpcText">Explain your DPC choice:</label>
+              <textarea id="dpcText" placeholder="Enter explanation..."></textarea>
+            </div>
+
+            <div class="section">
+              <h2>Ease of Identification (EI)</h2>
+              <p>How easily an individual can be identified from the breached data.</p>
+              <div class="dpc-table">
+                <table id="eiTable">
+                  <thead>
+                    <tr>
+                      <th>Score</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <label class="question" for="eiText">Explain your EI score:</label>
+              <textarea id="eiText" placeholder="Enter explanation..."></textarea>
+            </div>
+
+            <div class="section">
+              <h2>Loss of Confidentiality</h2>
+              <p>This evaluates the extent of data disclosure.</p>
+              <div class="dpc-table">
+                <table id="confTable">
+                  <thead>
+                    <tr>
+                      <th>Score</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <label class="question" for="confText">Explain your Confidentiality score:</label>
+              <textarea id="confText" placeholder="Enter explanation..."></textarea>
+            </div>
+
+            <div class="section">
+              <h2>Loss of Integrity</h2>
+              <p>This measures if and how the data has been altered.</p>
+              <div class="dpc-table">
+                <table id="integrityTable">
+                  <thead>
+                    <tr>
+                      <th>Score</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <label class="question" for="integrityText">Explain your Integrity score:</label>
+              <textarea id="integrityText" placeholder="Enter explanation..."></textarea>
+            </div>
+
+            <div class="section">
+              <h2>Loss of Availability</h2>
+              <p>This examines whether data can be accessed when needed.</p>
+              <div class="dpc-table">
+                <table id="availTable">
+                  <thead>
+                    <tr>
+                      <th>Score</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <label class="question" for="availText">Explain your Availability score:</label>
+              <textarea id="availText" placeholder="Enter explanation..."></textarea>
+            </div>
+
+            <div class="section">
+              <h2>Malicious Intent</h2>
+              <p>This evaluates whether the breach was accidental or intentional.</p>
+              <div class="dpc-table">
+                <table id="maliciousTable">
+                  <thead>
+                    <tr>
+                      <th>Score</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <label class="question" for="maliciousText">Explain your Malicious Intent score:</label>
+              <textarea id="maliciousText" placeholder="Enter explanation..."></textarea>
+            </div>
+          </div>
+
+          <div class="card risk-summary">
+            <h2>Risk Summary</h2>
+            <p class="formula" id="formulaText"></p>
+            <div id="scoreSummary" class="chips"></div>
+            <table id="final-risk-table">
+              <thead>
+                <tr>
+                  <th>Criterion</th>
+                  <th>Score</th>
+                  <th>Description</th>
+                  <th>Comment</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <div class="result-badge">
+              <h3 id="severityResult"></h3>
+            </div>
+            <button class="generate-report" id="generateReport">Download PDF report</button>
+            <div id="pdfStatus" class="status-message" aria-live="polite"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const jsPDFLib = window.jspdf?.jsPDF || null;
+
+        const state = {
+          selectedPMA: "PMA 09",
+          dpcCategory: "1",
+          dpc: "1",
+          ei: "0.25",
+          confidentiality: "0",
+          integrity: "0",
+          availability: "0",
+          malicious: "0",
+          dpcText: "",
+          eiText: "",
+          confText: "",
+          integrityText: "",
+          availText: "",
+          maliciousText: "",
+        };
+
+        let latestResult = null;
+
+        const dpcOptions = {
+          1: "1 – Simple data, e.g., basic info like name and contact details.",
+          2: "2 – Behavioral data, e.g., preferences, habits, or traffic data.",
+          3: "3 – Financial data, e.g., bank statements, transaction details.",
+          4: "4 – Sensitive data, e.g., health or political affiliation.",
+        };
+
+        const dpcTableData = {
+          1: [
+            { score: "1", description: "Basic score: no aggravating factors." },
+            { score: "2", description: "Increased by 1: allows profiling of social/financial status." },
+            { score: "3", description: "Increased by 2: leads to assumptions about sensitive traits." },
+            { score: "4", description: "Increased by 3: vulnerable groups or minors." },
+          ],
+          2: [
+            { score: "1", description: "Decreased by 1: minimal behavioral insight." },
+            { score: "2", description: "Basic score: no adjustment." },
+            { score: "3", description: "Increased by 1: detailed behavioral profile possible." },
+            { score: "4", description: "Increased by 2: sensitive behavioral data available." },
+          ],
+          3: [
+            { score: "1", description: "Decreased by 2: minimal financial insight." },
+            { score: "2", description: "Decreased by 1: limited financial info." },
+            { score: "3", description: "Basic score: no adjustment." },
+            { score: "4", description: "Increased by 1: full financial details disclosed." },
+          ],
+          4: [
+            { score: "1", description: "Decreased by 1: data publicly available." },
+            { score: "2", description: "Decreased by 2: general assumptions possible." },
+            { score: "3", description: "Decreased by 1: minor sensitivity." },
+            { score: "4", description: "Basic score: no lessening factors." },
+          ],
+        };
+
+        const eiTableData = [
+          { score: "0.25", description: "Very difficult to identify the individual." },
+          { score: "0.5", description: "Identification possible but requires effort." },
+          { score: "0.75", description: "Several clues ease identification." },
+          { score: "1", description: "Individual can be directly identified." },
+        ];
+
+        const confTableData = [
+          { score: "0", description: "No breach in confidentiality." },
+          { score: "0.25", description: "Data shared with a few known recipients." },
+          { score: "0.5", description: "Data shared with several recipients." },
+        ];
+
+        const integrityTableData = [
+          { score: "0", description: "Data remains unaltered." },
+          { score: "0.25", description: "Minor alterations with easy recovery." },
+          { score: "0.5", description: "Data altered irrecoverably." },
+        ];
+
+        const availTableData = [
+          { score: "0", description: "Data recoverable; backups exist." },
+          { score: "0.25", description: "Low availability; temporary unavailability." },
+          { score: "0.5", description: "High unavailability; data completely lost." },
+        ];
+
+        const maliciousTableData = [
+          { score: "0", description: "Breach appears accidental." },
+          { score: "0.5", description: "Evidence of deliberate action." },
+        ];
+
+        const pmaOptions = ["PMA 01", "PMA 02", "PMA 03", "PMA 04", "PMA 05", "PMA 06", "PMA 07", "PMA 08", "PMA 09", "PMA 10"];
+
+        const elements = {
+          pmaDropdown: document.getElementById("pmaDropdown"),
+          pmaDropdownButton: document.getElementById("pmaDropdownButton"),
+          pmaMenu: document.getElementById("pmaMenu"),
+          mainContent: document.getElementById("mainContent"),
+          pmaNotice: document.getElementById("pmaNotice"),
+          formulaText: document.getElementById("formulaText"),
+          finalRiskTableBody: document.querySelector("#final-risk-table tbody"),
+          severityResult: document.getElementById("severityResult"),
+          generateReport: document.getElementById("generateReport"),
+          dpcText: document.getElementById("dpcText"),
+          eiText: document.getElementById("eiText"),
+          confText: document.getElementById("confText"),
+          integrityText: document.getElementById("integrityText"),
+          availText: document.getElementById("availText"),
+          maliciousText: document.getElementById("maliciousText"),
+          dpcRadioGroup: document.getElementById("dpcRadioGroup"),
+          scoreSummary: document.getElementById("scoreSummary"),
+          pdfStatus: document.getElementById("pdfStatus"),
+        };
+
+        const dropdowns = [elements.pmaDropdown];
+
+        if (!jsPDFLib) {
+          elements.generateReport.textContent = "PDF unavailable (offline)";
+          elements.generateReport.disabled = true;
+        }
+
+        const setPdfStatus = (message, type = "success") => {
+          elements.pdfStatus.textContent = message;
+          elements.pdfStatus.className = `status-message ${type}`;
+        };
+
+        const getRiskColor = (level) => {
+          if (level === "Low") return "#0ea36b";
+          if (level === "Medium") return "#f59e0b";
+          if (level === "High") return "#ef4444";
+          if (level === "Very High") return "#b91c1c";
+          return "#0f172a";
+        };
+
+        const closeOtherDropdowns = (target) => {
+          dropdowns.forEach((dropdown) => {
+            if (dropdown !== target) dropdown.classList.remove("open");
+          });
+        };
+
+        document.addEventListener("click", (event) => {
+          const isDropdownButton = event.target.closest(".dropdown-button") || event.target.closest(".dropdown button");
+          const dropdown = event.target.closest(".dropdown");
+          if (!dropdown && !isDropdownButton) {
+            dropdowns.forEach((dd) => dd.classList.remove("open"));
+          }
+        });
+
+        const updatePmaSelection = (pma) => {
+          state.selectedPMA = pma;
+          elements.pmaDropdownButton.textContent = `${pma} ▼`;
+          const showCalculator = pma === "PMA 09";
+          elements.mainContent.style.display = showCalculator ? "grid" : "none";
+          elements.pmaNotice.style.display = showCalculator ? "none" : "block";
+        };
+
+        const renderInteractiveTable = (tableId, dataArray, currentValue, key) => {
+          const tbody = document.querySelector(`#${tableId} tbody`);
+          tbody.innerHTML = "";
+          dataArray.forEach((row) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td>${row.score}</td><td>${row.description}</td>`;
+            if (currentValue === row.score) tr.classList.add("selected");
+            tr.addEventListener("click", () => {
+              state[key] = row.score;
+              renderAllTables();
+              updateRiskSummary();
+            });
+            tbody.appendChild(tr);
+          });
+        };
+
+        const renderRadioGroup = () => {
+          elements.dpcRadioGroup.innerHTML = "";
+          Object.entries(dpcOptions).forEach(([value, description]) => {
+            const label = document.createElement("label");
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.name = "dpcCategory";
+            input.value = value;
+            input.checked = state.dpcCategory === value;
+            input.addEventListener("change", () => {
+              state.dpcCategory = value;
+              state.dpc = value;
+              renderAllTables();
+              updateRiskSummary();
+            });
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(` ${description}`));
+            elements.dpcRadioGroup.appendChild(label);
+          });
+        };
+
+        const renderAllTables = () => {
+          renderInteractiveTable("dpcTable", dpcTableData[state.dpcCategory], state.dpc, "dpc");
+          renderInteractiveTable("eiTable", eiTableData, state.ei, "ei");
+          renderInteractiveTable("confTable", confTableData, state.confidentiality, "confidentiality");
+          renderInteractiveTable("integrityTable", integrityTableData, state.integrity, "integrity");
+          renderInteractiveTable("availTable", availTableData, state.availability, "availability");
+          renderInteractiveTable("maliciousTable", maliciousTableData, state.malicious, "malicious");
+        };
+
+        const updateSummaryChips = () => {
+          elements.scoreSummary.innerHTML = "";
+          if (!latestResult) return;
+          const items = [
+            { label: "DPC", value: latestResult.dpcValue },
+            { label: "EI", value: latestResult.eiValue },
+            { label: "CB", value: latestResult.cbValue },
+            { label: "Severity", value: latestResult.severity },
+          ];
+          items.forEach(({ label, value }) => {
+            const chip = document.createElement("div");
+            chip.className = "chip";
+            chip.textContent = `${label}: ${value}`;
+            elements.scoreSummary.appendChild(chip);
+          });
+        };
+
+        const updateRiskSummary = () => {
+          const dpcVal = parseFloat(state.dpc);
+          const eiVal = parseFloat(state.ei);
+          const confVal = parseFloat(state.confidentiality);
+          const integrityVal = parseFloat(state.integrity);
+          const availVal = parseFloat(state.availability);
+          const maliciousVal = parseFloat(state.malicious);
+
+          const cb = confVal + integrityVal + availVal + maliciousVal;
+          const severityValue = dpcVal * eiVal + cb;
+          let level = "";
+          if (severityValue < 3) level = "Low";
+          else if (severityValue < 5) level = "Medium";
+          else if (severityValue < 7) level = "High";
+          else level = "Very High";
+
+          latestResult = {
+            severity: severityValue.toFixed(2),
+            level,
+            dpcValue: state.dpc,
+            eiValue: state.ei,
+            cbValue: cb.toFixed(2),
+            breakdown: {
+              "Data Processing Context (DPC)": {
+                option: state.dpc,
+                score: state.dpc,
+                description: dpcOptions[state.dpcCategory],
+                comment: state.dpcText,
+              },
+              "Ease of Identification (EI)": {
+                option: state.ei,
+                score: state.ei,
+                description: eiTableData.find((item) => item.score === state.ei)?.description || "",
+                comment: state.eiText,
+              },
+              "Loss of Confidentiality": {
+                option: state.confidentiality,
+                score: state.confidentiality,
+                description: confTableData.find((item) => item.score === state.confidentiality)?.description || "",
+                comment: state.confText,
+              },
+              "Loss of Integrity": {
+                option: state.integrity,
+                score: state.integrity,
+                description: integrityTableData.find((item) => item.score === state.integrity)?.description || "",
+                comment: state.integrityText,
+              },
+              "Loss of Availability": {
+                option: state.availability,
+                score: state.availability,
+                description: availTableData.find((item) => item.score === state.availability)?.description || "",
+                comment: state.availText,
+              },
+              "Malicious Intent": {
+                option: state.malicious,
+                score: state.malicious,
+                description: maliciousTableData.find((item) => item.score === state.malicious)?.description || "",
+                comment: state.maliciousText,
+              },
+            },
+          };
+
+          elements.formulaText.textContent = `Formula: SE = (DPC: ${latestResult.dpcValue}) x (EI: ${latestResult.eiValue}) + (CB: ${latestResult.cbValue})`;
+
+          elements.finalRiskTableBody.innerHTML = "";
+          Object.entries(latestResult.breakdown).forEach(([key, value]) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${key}</td>
+              <td>${value.score}</td>
+              <td>${value.description}</td>
+              <td>${value.comment || ""}</td>
+            `;
+            elements.finalRiskTableBody.appendChild(row);
+          });
+
+          elements.severityResult.innerHTML = `Final Severity Score: ${latestResult.severity} - <span style="color: ${getRiskColor(latestResult.level)}">${latestResult.level}</span>`;
+          updateSummaryChips();
+        };
+
+        const addTextListener = (element, stateKey) => {
+          element.addEventListener("input", (e) => {
+            state[stateKey] = e.target.value;
+            updateRiskSummary();
+          });
+        };
+
+        const getDataUrlFromImage = (url) => {
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.onload = () => {
+              const canvas = document.createElement("canvas");
+              canvas.width = img.width;
+              canvas.height = img.height;
+              const ctx = canvas.getContext("2d");
+              ctx.drawImage(img, 0, 0);
+              resolve(canvas.toDataURL("image/png"));
+            };
+            img.onerror = () => reject(new Error("Could not load image at " + url));
+            img.src = url;
+          });
+        };
+
+        const createManualTable = (doc, rows, startY) => {
+          let y = startY;
+          doc.setFontSize(10);
+          rows.forEach((row) => {
+            const line = `${row[0]} | Score: ${row[1]} | ${row[2]} | ${row[3]}`;
+            const wrapped = doc.splitTextToSize(line, 180);
+            doc.text(wrapped, 14, y);
+            y += wrapped.length * 6;
+          });
+        };
+
+        const generatePDF = async () => {
+          if (!latestResult || !jsPDFLib) return;
+          setPdfStatus("Preparing your PDF…", "success");
+          elements.generateReport.disabled = true;
+          const doc = new jsPDFLib();
+          const logoUrl = "https://www.dpoconsultancy.com/wp-content/uploads/2024/03/DPO_logo.png";
+          try {
+            const logoDataUrl = await getDataUrlFromImage(logoUrl);
+            doc.addImage(logoDataUrl, "PNG", 10, 10, 50, 20);
+          } catch (error) {
+            console.error("Error loading logo:", error);
+          }
+          doc.setFontSize(16);
+          doc.text("Risk Summary Report", 14, 40);
+          doc.setFontSize(11);
+          doc.text(`Final Severity: ${latestResult.severity} (${latestResult.level})`, 14, 47);
+
+          const tableRows = Object.entries(latestResult.breakdown).map(([key, value]) => [key, value.score, value.description, value.comment || "-"]);
+
+          try {
+            if (typeof doc.autoTable === "function") {
+              doc.autoTable({
+                head: [["Criterion", "Score", "Description", "Comment"]],
+                body: tableRows,
+                startY: 52,
+                styles: { fontSize: 9, cellPadding: 2 },
+              });
+            } else {
+              createManualTable(doc, tableRows, 56);
+            }
+            doc.save("Risk_Summary_Report.pdf");
+            setPdfStatus("PDF downloaded successfully.", "success");
+          } catch (error) {
+            console.error("Error generating PDF:", error);
+            setPdfStatus("Unable to generate PDF in this browser. Please refresh and try again.", "error");
+          } finally {
+            elements.generateReport.disabled = false;
+          }
+        };
+
+        elements.generateReport.addEventListener("click", generatePDF);
+
+        addTextListener(elements.dpcText, "dpcText");
+        addTextListener(elements.eiText, "eiText");
+        addTextListener(elements.confText, "confText");
+        addTextListener(elements.integrityText, "integrityText");
+        addTextListener(elements.availText, "availText");
+        addTextListener(elements.maliciousText, "maliciousText");
+
+        elements.pmaDropdownButton.addEventListener("click", (event) => {
+          event.stopPropagation();
+          closeOtherDropdowns(elements.pmaDropdown);
+          elements.pmaDropdown.classList.toggle("open");
+        });
+
+        const populateDropdown = (menu, options, onSelect) => {
+          menu.innerHTML = "";
+          options.forEach((option) => {
+            const link = document.createElement("a");
+            link.textContent = option;
+            link.href = "#";
+            link.addEventListener("click", (e) => {
+              e.preventDefault();
+              onSelect(option);
+              menu.parentElement.classList.remove("open");
+            });
+            menu.appendChild(link);
+          });
+        };
+
+        populateDropdown(elements.pmaMenu, pmaOptions, updatePmaSelection);
+
+        renderRadioGroup();
+        renderAllTables();
+        updatePmaSelection(state.selectedPMA);
+        updateRiskSummary();
+      });
+    </script>
+  </body>
+</html>
