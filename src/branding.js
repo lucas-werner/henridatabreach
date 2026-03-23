@@ -1,2 +1,2 @@
 export const APP_LOGO_URL =
-  "/logo_provincie_noord-brabant.svg";
+  `${import.meta.env.BASE_URL}logo_provincie_noord-brabant.svg`;

@@ -17,6 +17,7 @@ import {
   getSelectedOption,
   getSeverity,
 } from "./utils";
+import { APP_LOGO_URL } from "./branding";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import Panel from "./components/Panel";
@@ -208,7 +209,7 @@ export default function App() {
 
       let logoDataUrl = null;
       try {
-        logoDataUrl = await imageToDataUrl("/logo_provincie_noord-brabant.svg");
+        logoDataUrl = await imageToDataUrl(APP_LOGO_URL);
       } catch (error) {
         console.error("Kon het logo niet laden voor PDF-export:", error);
       }
