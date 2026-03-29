@@ -8,7 +8,7 @@ export default function SummaryPanel({
   pdfBusy,
 }) {
   return (
-    <div className="overflow-hidden rounded-[2.4rem] border border-brabant-black bg-brabant-black text-white shadow-panel">
+    <div className="overflow-hidden rounded-[2.4rem] border border-dpo-black bg-dpo-black text-white shadow-panel">
       <div className="border-b border-white/10 p-6">
         <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-display uppercase tracking-[0.22em] text-white/74">
           <FileText className="h-3.5 w-3.5" />
@@ -48,7 +48,7 @@ export default function SummaryPanel({
 
         <div className="rounded-[1.8rem] border border-white/10 bg-white/5 p-4">
           <div className="flex items-center gap-2 font-display text-xs uppercase tracking-[0.22em] text-white/55">
-            <AlertTriangle className="h-4 w-4 text-brabant-red" />
+            <AlertTriangle className="h-4 w-4 text-dpo-red" />
             Aanbevolen vervolgstappen
           </div>
           <div className="mt-3 space-y-3">
@@ -63,7 +63,7 @@ export default function SummaryPanel({
         <button
           type="button"
           onClick={onExport}
-          className="magnetic inline-flex w-full items-center justify-center gap-2 rounded-full bg-brabant-red px-5 py-3 font-display text-sm uppercase tracking-[0.18em] text-white"
+          className="magnetic inline-flex w-full items-center justify-center gap-2 rounded-full bg-dpo-red px-5 py-3 font-display text-sm uppercase tracking-[0.18em] text-white"
         >
           <Download className="h-4 w-4" />
           {pdfBusy ? "PDF wordt opgebouwd..." : "Exporteer PDF"}

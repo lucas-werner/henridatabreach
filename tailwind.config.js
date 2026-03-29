@@ -4,13 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        brabant: {
-          red: "#dd0000",
-          black: "#1d1d1b",
+        dpo: {
+          red: "#B4CE37",
+          black: "#303635",
           gray: "#75848b",
           blue: "#224271",
           aqua: "#006e79",
-          green: "#56a446",
+          green: "#B4CE37",
           yellow: "#f7a823",
           rose: "#e35178",
           cream: "#f7f4f1"

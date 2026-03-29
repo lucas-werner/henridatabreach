@@ -13,27 +13,27 @@ function clipText(value, limit) {
 
 function ReportField({ label, value }) {
   return (
-    <div className="rounded-[20px] border border-brabant-black/8 bg-white/80 p-4">
-      <p className="font-display text-[10px] uppercase tracking-[0.22em] text-brabant-gray">
+    <div className="rounded-[20px] border border-dpo-black/8 bg-white/80 p-4">
+      <p className="font-display text-[10px] uppercase tracking-[0.22em] text-dpo-gray">
         {label}
       </p>
-      <p className="mt-2 text-[14px] leading-6 text-brabant-black/80">{value}</p>
+      <p className="mt-2 text-[14px] leading-6 text-dpo-black/80">{value}</p>
     </div>
   );
 }
 
 function ScoreSummaryCard({ label, value, tone = "dark", subtext }) {
   const tones = {
-    dark: "bg-brabant-black text-white",
-    light: "border border-brabant-black/10 bg-white text-brabant-black",
-    accent: "bg-brabant-red text-white",
+    dark: "bg-dpo-black text-white",
+    light: "border border-dpo-black/10 bg-white text-dpo-black",
+    accent: "bg-dpo-red text-white",
   };
 
   return (
     <div className={`rounded-[28px] px-6 py-5 ${tones[tone]}`}>
       <p
         className={`font-display text-[10px] uppercase tracking-[0.22em] ${
-          tone === "light" ? "text-brabant-gray" : "text-white/55"
+          tone === "light" ? "text-dpo-gray" : "text-white/55"
         }`}
       >
         {label}
@@ -44,7 +44,7 @@ function ScoreSummaryCard({ label, value, tone = "dark", subtext }) {
       {subtext ? (
         <p
           className={`mt-3 text-[13px] leading-6 ${
-            tone === "light" ? "text-brabant-black/72" : "text-white/78"
+            tone === "light" ? "text-dpo-black/72" : "text-white/78"
           }`}
         >
           {subtext}
@@ -58,11 +58,11 @@ function PageFrame({ pageNumber, title, children }) {
   return (
     <section
       data-report-page
-      className="relative h-[1123px] overflow-hidden bg-[#fcfaf7] px-14 py-12 text-brabant-black"
+      className="relative h-[1123px] overflow-hidden bg-[#fcfaf7] px-14 py-12 text-dpo-black"
     >
-      <div className="flex items-start justify-between gap-10 border-b border-brabant-black/10 pb-7">
+      <div className="flex items-start justify-between gap-10 border-b border-dpo-black/10 pb-7">
         <div>
-          <p className="font-display text-[10px] uppercase tracking-[0.28em] text-brabant-red">
+          <p className="font-display text-[10px] uppercase tracking-[0.28em] text-dpo-red">
             Ernstbeoordeling datalek
           </p>
           <h2 className="mt-3 font-display text-[32px] uppercase leading-none">
@@ -81,7 +81,7 @@ function PageFrame({ pageNumber, title, children }) {
 
       <div className="pb-20 pt-8">{children}</div>
 
-      <div className="absolute bottom-10 left-14 right-14 flex items-center justify-between border-t border-brabant-black/10 pt-4 text-[11px] uppercase tracking-[0.18em] text-brabant-black/52">
+      <div className="absolute bottom-10 left-14 right-14 flex items-center justify-between border-t border-dpo-black/10 pt-4 text-[11px] uppercase tracking-[0.18em] text-dpo-black/52">
         <span>Severity assessment rapport</span>
         <span>Pagina {pageNumber} van {TOTAL_PAGES}</span>
       </div>
@@ -98,17 +98,17 @@ const ReportDocument = forwardRef(function ReportDocument(
   const eiRow = rows.find((row) => row.shortLabel === "EI");
 
   return (
-    <div ref={ref} className="report-root bg-[#fcfaf7] text-brabant-black">
+    <div ref={ref} className="report-root bg-[#fcfaf7] text-dpo-black">
       <PageFrame pageNumber={1} title="Rapportoverzicht">
         <div className="grid grid-cols-[1.1fr_0.9fr] gap-8">
           <div>
             <p className="max-w-[420px] font-display text-[50px] uppercase leading-[0.9]">
               Datalek
             </p>
-            <p className="font-display text-[56px] italic leading-[0.88] text-brabant-red">
+            <p className="font-display text-[56px] italic leading-[0.88] text-dpo-red">
               ernstscore
             </p>
-            <p className="mt-6 max-w-[470px] text-[15px] leading-7 text-brabant-black/72">
+            <p className="mt-6 max-w-[470px] text-[15px] leading-7 text-dpo-black/72">
               Dit rapport bundelt de vastgelegde incidentcontext, de gekozen
               criteria, de berekende ernstscore en de vervolgstappen op basis van
               de ENISA-methodologie.
@@ -130,8 +130,8 @@ const ReportDocument = forwardRef(function ReportDocument(
             </div>
           </div>
 
-          <div className="rounded-[34px] border border-brabant-black/10 bg-white p-7 shadow-soft">
-            <p className="font-display text-[10px] uppercase tracking-[0.22em] text-brabant-gray">
+          <div className="rounded-[34px] border border-dpo-black/10 bg-white p-7 shadow-soft">
+            <p className="font-display text-[10px] uppercase tracking-[0.22em] text-dpo-gray">
               Dossiergegevens
             </p>
             <div className="mt-5 grid gap-3">
@@ -163,10 +163,10 @@ const ReportDocument = forwardRef(function ReportDocument(
 
         <div className="mt-8 grid grid-cols-[1fr_0.95fr] gap-8">
           <div className="rounded-[34px] bg-white p-7 shadow-soft">
-            <p className="font-display text-[10px] uppercase tracking-[0.22em] text-brabant-gray">
+            <p className="font-display text-[10px] uppercase tracking-[0.22em] text-dpo-gray">
               Managementsamenvatting
             </p>
-            <p className="mt-4 text-[14px] leading-7 text-brabant-black/78">
+            <p className="mt-4 text-[14px] leading-7 text-dpo-black/78">
               De beoordeling gebruikt de formule <strong>SE = DPC x EI + CB</strong>.
               Voor dit incident is gekozen voor de gegevenscontext{" "}
               <strong>{dpcVariant.title.toLowerCase()}</strong> met een DPC-score
@@ -189,16 +189,16 @@ const ReportDocument = forwardRef(function ReportDocument(
           </div>
 
           <div className="space-y-4">
-            <div className="rounded-[34px] border border-brabant-black/10 bg-[#f5eee8] p-7">
-              <p className="font-display text-[10px] uppercase tracking-[0.22em] text-brabant-gray">
+            <div className="rounded-[34px] border border-dpo-black/10 bg-[#f5eee8] p-7">
+              <p className="font-display text-[10px] uppercase tracking-[0.22em] text-dpo-gray">
                 Incidentsamenvatting
               </p>
-              <p className="mt-4 text-[14px] leading-7 text-brabant-black/76">
+              <p className="mt-4 text-[14px] leading-7 text-dpo-black/76">
                 {clipText(form.samenvatting, 520)}
               </p>
             </div>
 
-            <div className="rounded-[34px] bg-brabant-black p-7 text-white">
+            <div className="rounded-[34px] bg-dpo-black p-7 text-white">
               <p className="font-display text-[10px] uppercase tracking-[0.22em] text-white/55">
                 Methodologie in het kort
               </p>
@@ -214,17 +214,17 @@ const ReportDocument = forwardRef(function ReportDocument(
       </PageFrame>
 
       <PageFrame pageNumber={2} title="Scoringsmatrix">
-        <div className="rounded-[34px] border border-brabant-black/10 bg-white shadow-soft">
-          <div className="flex items-center justify-between border-b border-brabant-black/8 px-7 py-5">
+        <div className="rounded-[34px] border border-dpo-black/10 bg-white shadow-soft">
+          <div className="flex items-center justify-between border-b border-dpo-black/8 px-7 py-5">
             <div>
-              <p className="font-display text-[10px] uppercase tracking-[0.22em] text-brabant-red">
+              <p className="font-display text-[10px] uppercase tracking-[0.22em] text-dpo-red">
                 Overzicht criteria
               </p>
               <p className="mt-2 font-display text-[24px] uppercase leading-none">
                 Matrix
               </p>
             </div>
-            <div className="rounded-full border border-brabant-black/10 px-4 py-2 font-display text-[11px] uppercase tracking-[0.18em] text-brabant-black/60">
+            <div className="rounded-full border border-dpo-black/10 px-4 py-2 font-display text-[11px] uppercase tracking-[0.18em] text-dpo-black/60">
               {rows.length} criteria
             </div>
           </div>
@@ -238,7 +238,7 @@ const ReportDocument = forwardRef(function ReportDocument(
                 <col className="w-[40%]" />
               </colgroup>
               <thead>
-                <tr className="bg-brabant-black text-left text-[10px] font-display uppercase tracking-[0.2em] text-white/72">
+                <tr className="bg-dpo-black text-left text-[10px] font-display uppercase tracking-[0.2em] text-white/72">
                   <th className="rounded-tl-[20px] px-4 py-4">Criterium</th>
                   <th className="px-4 py-4">Score</th>
                   <th className="px-4 py-4">Duiding</th>
@@ -252,20 +252,20 @@ const ReportDocument = forwardRef(function ReportDocument(
                     className={index % 2 === 0 ? "bg-[#f7f2ed]" : "bg-[#fdfbf8]"}
                   >
                     <td className="px-4 py-4 align-top">
-                      <p className="font-display text-[11px] uppercase tracking-[0.18em] text-brabant-gray">
+                      <p className="font-display text-[11px] uppercase tracking-[0.18em] text-dpo-gray">
                         {row.shortLabel}
                       </p>
-                      <p className="mt-1 text-[13px] font-bold leading-5 text-brabant-black">
+                      <p className="mt-1 text-[13px] font-bold leading-5 text-dpo-black">
                         {row.label}
                       </p>
                     </td>
-                    <td className="px-4 py-4 align-top font-display text-[18px] uppercase leading-none text-brabant-black">
+                    <td className="px-4 py-4 align-top font-display text-[18px] uppercase leading-none text-dpo-black">
                       {String(row.score).replace(".", ",")}
                     </td>
-                    <td className="px-4 py-4 align-top text-[12px] leading-6 text-brabant-black/76">
+                    <td className="px-4 py-4 align-top text-[12px] leading-6 text-dpo-black/76">
                       {clipText(row.description, 170)}
                     </td>
-                    <td className="px-4 py-4 align-top text-[12px] leading-6 text-brabant-black/76">
+                    <td className="px-4 py-4 align-top text-[12px] leading-6 text-dpo-black/76">
                       {clipText(row.comment, 220)}
                     </td>
                   </tr>
@@ -295,28 +295,28 @@ const ReportDocument = forwardRef(function ReportDocument(
           </div>
 
           <div className="space-y-5">
-            <div className="rounded-[34px] border border-brabant-black/10 bg-white p-7 shadow-soft">
-              <p className="font-display text-[10px] uppercase tracking-[0.22em] text-brabant-gray">
+            <div className="rounded-[34px] border border-dpo-black/10 bg-white p-7 shadow-soft">
+              <p className="font-display text-[10px] uppercase tracking-[0.22em] text-dpo-gray">
                 Aanbevolen vervolgstappen
               </p>
               <div className="mt-4 space-y-4">
                 {nextSteps.map((step) => (
                   <div
                     key={step}
-                    className="flex gap-3 text-[13px] leading-6 text-brabant-black/76"
+                    className="flex gap-3 text-[13px] leading-6 text-dpo-black/76"
                   >
-                    <span className="mt-[8px] h-2.5 w-2.5 shrink-0 rounded-full bg-brabant-red" />
+                    <span className="mt-[8px] h-2.5 w-2.5 shrink-0 rounded-full bg-dpo-red" />
                     <p>{clipText(step, 150)}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="rounded-[34px] border border-brabant-black/10 bg-[#f5eee8] p-7">
-              <p className="font-display text-[10px] uppercase tracking-[0.22em] text-brabant-gray">
+            <div className="rounded-[34px] border border-dpo-black/10 bg-[#f5eee8] p-7">
+              <p className="font-display text-[10px] uppercase tracking-[0.22em] text-dpo-gray">
                 Maatregelen en opvolging
               </p>
-              <p className="mt-4 text-[13px] leading-6 text-brabant-black/74">
+              <p className="mt-4 text-[13px] leading-6 text-dpo-black/74">
                 {clipText(form.maatregelen, 360)}
               </p>
             </div>
