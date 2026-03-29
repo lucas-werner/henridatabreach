@@ -181,13 +181,10 @@ export default function App() {
       const margin = 14;
       const contentWidth = pageWidth - margin * 2;
       const footerY = pageHeight - 10;
-      const charcoal = [48, 54, 53];
-      const green = [180, 206, 55];
-      const blue = [34, 66, 113];
-      const gray = [117, 132, 139];
-      const soft = [252, 250, 247];
-      const pale = [247, 244, 241];
-      const mint = [239, 246, 214];
+      const black = [29, 29, 27];
+      const red = [221, 0, 0];
+      const soft = [247, 242, 237];
+      const pale = [245, 238, 232];
 
       const clipText = (value, limit) => {
         if (!value) return "Niet ingevuld";
@@ -204,29 +201,25 @@ export default function App() {
             canvas.height = image.height;
             const context = canvas.getContext("2d");
             context.drawImage(image, 0, 0);
-            resolve({
-              dataUrl: canvas.toDataURL("image/png"),
-              width: image.width,
-              height: image.height,
-            });
+            resolve(canvas.toDataURL("image/png"));
           };
           image.onerror = () => reject(new Error(`Kon logo niet laden: ${src}`));
           image.src = src;
         });
 
-      let logoImage = null;
+      let logoDataUrl = null;
       try {
-        logoImage = await imageToDataUrl(APP_LOGO_URL);
+        logoDataUrl = await imageToDataUrl(APP_LOGO_URL);
       } catch (error) {
         console.error("Kon het logo niet laden voor PDF-export:", error);
       }
 
       const drawFooter = (pageNumber) => {
-        pdf.setDrawColor(...green);
+        pdf.setDrawColor(220, 220, 220);
         pdf.line(margin, pageHeight - 16, pageWidth - margin, pageHeight - 16);
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(9);
-        pdf.setTextColor(...gray);
+        pdf.setTextColor(100, 100, 100);
         pdf.text("Severity assessment rapport", margin, footerY);
         pdf.text(`Pagina ${pageNumber} van 2`, pageWidth - margin, footerY, {
           align: "right",
@@ -236,37 +229,21 @@ export default function App() {
       const drawHeader = (title, pageNumber) => {
         pdf.setFont("helvetica", "bold");
         pdf.setFontSize(9);
-        pdf.setTextColor(...green);
+        pdf.setTextColor(...red);
         pdf.text("ERNSTBEOORDELING DATALEK", margin, 14);
 
         pdf.setFontSize(22);
-        pdf.setTextColor(...charcoal);
+        pdf.setTextColor(...black);
         pdf.text(title, margin, 24);
 
-        if (logoImage) {
+        if (logoDataUrl) {
           try {
-            const maxLogoWidth = 62;
-            const maxLogoHeight = 12;
-            const scale = Math.min(
-              maxLogoWidth / logoImage.width,
-              maxLogoHeight / logoImage.height,
-            );
-            const logoWidth = logoImage.width * scale;
-            const logoHeight = logoImage.height * scale;
-
-            pdf.addImage(
-              logoImage.dataUrl,
-              "PNG",
-              pageWidth - margin - logoWidth,
-              10,
-              logoWidth,
-              logoHeight,
-            );
+            pdf.addImage(logoDataUrl, "PNG", pageWidth - margin - 48, 9, 48, 14);
           } catch (error) {
             console.error("Kon het logo niet invoegen in de PDF:", error);
           }
         }
-        pdf.setDrawColor(...green);
+        pdf.setDrawColor(220, 220, 220);
         pdf.line(margin, 30, pageWidth - margin, 30);
         drawFooter(pageNumber);
       };
@@ -360,10 +337,10 @@ export default function App() {
       drawHeader("Rapportoverzicht", 1);
 
       pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(...charcoal);
+      pdf.setTextColor(...black);
       pdf.setFontSize(28);
       pdf.text("Datalek", margin, 44);
-      pdf.setTextColor(...green);
+      pdf.setTextColor(...red);
       pdf.setFont("times", "italic");
       pdf.setFontSize(30);
       pdf.text("ernstscore", margin, 56);
@@ -374,7 +351,7 @@ export default function App() {
         y: 64,
         width: 88,
         fontSize: 10,
-        color: charcoal,
+        color: [65, 65, 65],
         lineHeight: 5,
         maxLines: 4,
       });
@@ -387,7 +364,7 @@ export default function App() {
         label: "Classificatie",
         value: result.band.label,
         text: result.band.summary,
-        fill: charcoal,
+        fill: black,
         textColor: [255, 255, 255],
       });
 
@@ -399,32 +376,25 @@ export default function App() {
         label: "Eindscore",
         value: currentSelections.score,
         text: `SE = ${selections.dpc} x ${currentSelections.ei} + ${currentSelections.cb}`,
-        fill: green,
+        fill: red,
         textColor: [255, 255, 255],
       });
 
-      drawBox({
-        x: margin,
-        y: 84,
-        w: 92,
-        h: 78,
-        fill: [255, 255, 255],
-        stroke: [227, 233, 223],
-      });
-      writeBlockTitle("Managementsamenvatting", margin + 6, 92, blue);
+      drawBox({ x: margin, y: 84, w: 92, h: 78 });
+      writeBlockTitle("Managementsamenvatting", margin + 6, 92);
       writeWrappedText({
         text: `De beoordeling gebruikt de formule SE = DPC x EI + CB. Voor dit incident is gekozen voor ${dpcVariant.title.toLowerCase()} met DPC ${selections.dpc}, EI ${currentSelections.ei} en CB ${currentSelections.cb}. Daarmee komt de ernstscore uit op ${currentSelections.score}, wat valt in de klasse ${result.band.label.toLowerCase()}.`,
         x: margin + 6,
         y: 100,
         width: 80,
         fontSize: 10,
-        color: charcoal,
+        color: [50, 50, 50],
         lineHeight: 5,
         maxLines: 8,
       });
 
-      drawBox({ x: 111, y: 84, w: 85, h: 78, fill: pale, stroke: pale });
-      writeBlockTitle("Dossiergegevens", 117, 92, blue);
+      drawBox({ x: 111, y: 84, w: 85, h: 78 });
+      writeBlockTitle("Dossiergegevens", 117, 92);
       const dossierFields = [
         ["Dossiertitel", clipText(form.dossierTitel, 80)],
         ["Organisatie", clipText(form.organisatie, 80)],
@@ -436,7 +406,7 @@ export default function App() {
       dossierFields.forEach(([label, value]) => {
         pdf.setFont("helvetica", "bold");
         pdf.setFontSize(8);
-        pdf.setTextColor(...gray);
+        pdf.setTextColor(125, 140, 152);
         pdf.text(label.toUpperCase(), 117, dossierY);
         writeWrappedText({
           text: value,
@@ -444,7 +414,7 @@ export default function App() {
           y: dossierY + 3,
           width: 73,
           fontSize: 10,
-          color: charcoal,
+          color: [40, 40, 40],
           lineHeight: 4.6,
           maxLines: 2,
         });
@@ -452,19 +422,19 @@ export default function App() {
       });
 
       drawBox({ x: margin, y: 170, w: 88, h: 48, fill: pale, stroke: pale });
-      writeBlockTitle("Incidentsamenvatting", margin + 6, 178, blue);
+      writeBlockTitle("Incidentsamenvatting", margin + 6, 178);
       writeWrappedText({
         text: clipText(form.samenvatting, 280),
         x: margin + 6,
         y: 186,
         width: 76,
         fontSize: 10,
-        color: charcoal,
+        color: [45, 45, 45],
         lineHeight: 5,
         maxLines: 5,
       });
 
-      drawBox({ x: 106, y: 170, w: 90, h: 48, fill: blue, stroke: blue });
+      drawBox({ x: 106, y: 170, w: 90, h: 48, fill: black, stroke: black });
       pdf.setTextColor(255, 255, 255);
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(8);
@@ -500,7 +470,7 @@ export default function App() {
       ];
       const headerHeight = 10;
 
-      pdf.setFillColor(...charcoal);
+      pdf.setFillColor(...black);
       pdf.roundedRect(tableX, tableY, tableWidth, headerHeight, 4, 4, "F");
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(8);
@@ -514,7 +484,7 @@ export default function App() {
 
       let rowY = tableY + headerHeight;
       reportRows.forEach((row, index) => {
-        const fills = index % 2 === 0 ? soft : pale;
+        const fills = index % 2 === 0 ? soft : [253, 251, 248];
         const description = clipText(row.description, 170);
         const comment = clipText(row.comment, 220);
 
@@ -526,7 +496,7 @@ export default function App() {
         const rowHeight = Math.min(28, 7 + rowLines * 4.2);
 
         pdf.setFillColor(...fills);
-        pdf.setDrawColor(227, 233, 223);
+        pdf.setDrawColor(230, 230, 230);
         pdf.rect(tableX, rowY, tableWidth, rowHeight, "FD");
 
         let cellX = tableX;
@@ -537,12 +507,12 @@ export default function App() {
           cellX += column.width;
         });
 
-        pdf.setTextColor(...gray);
+        pdf.setTextColor(125, 140, 152);
         pdf.setFont("helvetica", "bold");
         pdf.setFontSize(8);
         pdf.text(row.shortLabel, tableX + 3, rowY + 5);
 
-        pdf.setTextColor(...charcoal);
+        pdf.setTextColor(...black);
         pdf.setFontSize(9);
         pdf.text(row.label, tableX + 3, rowY + 10);
 
@@ -556,7 +526,7 @@ export default function App() {
           y: rowY + 3,
           width: columns[2].width - 6,
           fontSize: 8.5,
-          color: charcoal,
+          color: [55, 55, 55],
           lineHeight: 4,
           maxLines: 4,
         });
@@ -567,7 +537,7 @@ export default function App() {
           y: rowY + 3,
           width: columns[3].width - 6,
           fontSize: 8.5,
-          color: charcoal,
+          color: [55, 55, 55],
           lineHeight: 4,
           maxLines: 4,
         });
@@ -584,7 +554,7 @@ export default function App() {
         label: "Eindscore",
         value: currentSelections.score,
         text: result.band.summary,
-        fill: charcoal,
+        fill: black,
         textColor: [255, 255, 255],
       });
 
@@ -596,14 +566,14 @@ export default function App() {
         label: "Classificatie",
         value: result.band.label,
         text: "Gebruik deze uitkomst als basis voor dossiervorming en meldplichtbeoordeling.",
-        fill: green,
+        fill: red,
         textColor: [255, 255, 255],
       });
 
-      drawBox({ x: 102, y: cardsY, w: 94, h: 34, fill: mint, stroke: mint });
-      writeBlockTitle("Aanbevolen vervolgstappen", 108, cardsY + 8, blue);
+      drawBox({ x: 102, y: cardsY, w: 94, h: 34 });
+      writeBlockTitle("Aanbevolen vervolgstappen", 108, cardsY + 8);
       nextSteps.forEach((step, index) => {
-        pdf.setFillColor(...green);
+        pdf.setFillColor(...red);
         pdf.circle(110, cardsY + 15 + index * 6, 0.9, "F");
         writeWrappedText({
           text: clipText(step, 120),
@@ -611,21 +581,21 @@ export default function App() {
           y: cardsY + 12 + index * 6,
           width: 76,
           fontSize: 8.5,
-          color: charcoal,
+          color: [50, 50, 50],
           lineHeight: 4,
           maxLines: 1,
         });
       });
 
       drawBox({ x: margin, y: cardsY + 40, w: contentWidth, h: 24, fill: pale, stroke: pale });
-      writeBlockTitle("Maatregelen en opvolging", margin + 6, cardsY + 48, blue);
+      writeBlockTitle("Maatregelen en opvolging", margin + 6, cardsY + 48);
       writeWrappedText({
         text: clipText(form.maatregelen, 420),
         x: margin + 6,
         y: cardsY + 52,
         width: contentWidth - 12,
         fontSize: 9,
-        color: charcoal,
+        color: [50, 50, 50],
         lineHeight: 4.5,
         maxLines: 2,
       });
