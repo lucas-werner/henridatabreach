@@ -421,8 +421,8 @@ export const SEVERITY_BANDS = [
     min: 0,
     max: 2,
     label: "Laag",
-    tone: "text-dpo-green",
-    box: "border-dpo-green/30 bg-dpo-green/10",
+    tone: "text-brabant-green",
+    box: "border-brabant-green/30 bg-brabant-green/10",
     summary:
       "De waarschijnlijke impact voor betrokkenen is beperkt en doorgaans overkomelijk zonder ernstige blijvende schade.",
   },
@@ -430,8 +430,8 @@ export const SEVERITY_BANDS = [
     min: 2,
     max: 3,
     label: "Middel",
-    tone: "text-dpo-yellow",
-    box: "border-dpo-yellow/40 bg-dpo-yellow/12",
+    tone: "text-brabant-yellow",
+    box: "border-brabant-yellow/40 bg-brabant-yellow/12",
     summary:
       "Betrokkenen kunnen merkbare hinder of stress ondervinden en extra inspanning nodig hebben om gevolgen te beperken.",
   },
@@ -439,8 +439,8 @@ export const SEVERITY_BANDS = [
     min: 3,
     max: 4,
     label: "Hoog",
-    tone: "text-dpo-rose",
-    box: "border-dpo-rose/40 bg-dpo-rose/12",
+    tone: "text-brabant-rose",
+    box: "border-brabant-rose/40 bg-brabant-rose/12",
     summary:
       "Er zijn serieuze gevolgen denkbaar, zoals financiële schade, reputatieverlies of aantasting van rechten en vrijheden.",
   },
@@ -448,8 +448,8 @@ export const SEVERITY_BANDS = [
     min: 4,
     max: Number.POSITIVE_INFINITY,
     label: "Zeer hoog",
-    tone: "text-dpo-red",
-    box: "border-dpo-red/40 bg-dpo-red/10",
+    tone: "text-brabant-red",
+    box: "border-brabant-red/40 bg-brabant-red/10",
     summary:
       "De gevolgen kunnen ernstig, langdurig of moeilijk herstelbaar zijn en vragen om onmiddellijke opvolging en escalatie.",
   },

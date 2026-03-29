@@ -616,7 +616,7 @@ export default function App() {
   };
 
   return (
-    <div ref={appRef} className="relative overflow-x-hidden font-body text-dpo-black">
+    <div ref={appRef} className="relative overflow-x-hidden font-body text-brabant-black">
       <Navbar solid={navSolid} />
 
       <main className="mx-auto max-w-[1440px] px-4 pb-20 pt-28 sm:px-6 lg:px-8">
@@ -635,7 +635,7 @@ export default function App() {
             <div className="grid gap-4 md:grid-cols-2">
               {INCIDENT_FIELDS.map((field) => (
                 <label key={field.key} className="block">
-                  <span className="mb-2 block text-sm font-bold text-dpo-black/82">
+                  <span className="mb-2 block text-sm font-bold text-brabant-black/82">
                     {field.label}
                   </span>
                   <input
@@ -643,7 +643,7 @@ export default function App() {
                     value={form[field.key]}
                     onChange={(event) => updateForm(field.key, event.target.value)}
                     placeholder={field.placeholder}
-                    className="w-full rounded-[1.4rem] border border-dpo-black/10 bg-white/80 px-4 py-3 text-sm outline-none transition focus:border-dpo-red/45 focus:bg-white"
+                    className="w-full rounded-[1.4rem] border border-brabant-black/10 bg-white/80 px-4 py-3 text-sm outline-none transition focus:border-brabant-red/45 focus:bg-white"
                   />
                 </label>
               ))}
@@ -652,7 +652,7 @@ export default function App() {
             <div className="mt-4 grid gap-4">
               {LONG_FIELDS.map((field) => (
                 <label key={field.key} className="block">
-                  <span className="mb-2 block text-sm font-bold text-dpo-black/82">
+                  <span className="mb-2 block text-sm font-bold text-brabant-black/82">
                     {field.label}
                   </span>
                   <textarea
@@ -660,7 +660,7 @@ export default function App() {
                     value={form[field.key]}
                     onChange={(event) => updateForm(field.key, event.target.value)}
                     placeholder={field.placeholder}
-                    className="w-full rounded-[1.6rem] border border-dpo-black/10 bg-white/80 px-4 py-3 text-sm leading-6 outline-none transition focus:border-dpo-red/45 focus:bg-white"
+                    className="w-full rounded-[1.6rem] border border-brabant-black/10 bg-white/80 px-4 py-3 text-sm leading-6 outline-none transition focus:border-brabant-red/45 focus:bg-white"
                   />
                 </label>
               ))}
@@ -697,7 +697,7 @@ export default function App() {
                   className="rounded-[1.8rem] border border-white/10 bg-white/5 p-5 text-sm leading-6 text-white/82"
                 >
                   <div className="flex items-start gap-3">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white text-dpo-red">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white text-brabant-red">
                       <Info className="h-4 w-4" />
                     </span>
                     <div>
@@ -722,7 +722,7 @@ export default function App() {
                   href="https://www.enisa.europa.eu/sites/default/files/publications/Data%20breach%20severity%20methodology_1.0.pdf"
                   target="_blank"
                   rel="noreferrer"
-                  className="font-display uppercase tracking-[0.12em] text-dpo-red transition hover:text-white"
+                  className="font-display uppercase tracking-[0.12em] text-brabant-red transition hover:text-white"
                 >
                   Data breach severity methodology 1.0
                 </a>
@@ -740,18 +740,18 @@ export default function App() {
             <div className="rounded-[2.2rem] border border-white/60 bg-white/78 p-5 shadow-soft backdrop-blur sm:p-7">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <p className="font-display text-xs uppercase tracking-[0.28em] text-dpo-red">
+                  <p className="font-display text-xs uppercase tracking-[0.28em] text-brabant-red">
                     Assessment flow
                   </p>
-                  <h2 className="mt-3 font-display text-[1.85rem] uppercase leading-[0.95] text-dpo-black sm:text-[2.3rem]">
+                  <h2 className="mt-3 font-display text-[1.85rem] uppercase leading-[0.95] text-brabant-black sm:text-[2.3rem]">
                     Beantwoord één criterium per stap
                   </h2>
-                  <p className="mt-3 max-w-2xl text-sm leading-6 text-dpo-black/70">
+                  <p className="mt-3 max-w-2xl text-sm leading-6 text-brabant-black/70">
                     Gebruik de pijlen om naar de volgende of vorige vraag te gaan.
                     De rechterkolom blijft zichtbaar als live samenvatting.
                   </p>
                 </div>
-                <div className="rounded-full border border-dpo-black/10 bg-dpo-cream/80 px-4 py-2 font-display text-sm uppercase tracking-[0.18em] text-dpo-black">
+                <div className="rounded-full border border-brabant-black/10 bg-brabant-cream/80 px-4 py-2 font-display text-sm uppercase tracking-[0.18em] text-brabant-black">
                   Vraag {currentStep + 1} van {CRITERIA.length}
                 </div>
               </div>
@@ -766,8 +766,8 @@ export default function App() {
                       onClick={() => moveToStep(index)}
                       className={`magnetic rounded-[1.4rem] border px-4 py-3 text-left ${
                         active
-                          ? "border-dpo-red bg-dpo-red text-white shadow-soft"
-                          : "border-dpo-black/10 bg-white/80 text-dpo-black"
+                          ? "border-brabant-red bg-brabant-red text-white shadow-soft"
+                          : "border-brabant-black/10 bg-white/80 text-brabant-black"
                       }`}
                     >
                       <p className="font-display text-[11px] uppercase tracking-[0.18em] opacity-70">
@@ -795,13 +795,13 @@ export default function App() {
                 type="button"
                 onClick={() => moveToStep(currentStep - 1)}
                 disabled={currentStep === 0}
-                className="magnetic inline-flex items-center gap-2 rounded-full border border-dpo-black/10 px-5 py-3 font-display text-sm uppercase tracking-[0.18em] text-dpo-black disabled:cursor-not-allowed disabled:opacity-35"
+                className="magnetic inline-flex items-center gap-2 rounded-full border border-brabant-black/10 px-5 py-3 font-display text-sm uppercase tracking-[0.18em] text-brabant-black disabled:cursor-not-allowed disabled:opacity-35"
               >
                 <ArrowLeft className="h-4 w-4" />
                 Vorige
               </button>
 
-              <p className="text-sm text-dpo-black/68">
+              <p className="text-sm text-brabant-black/68">
                 {activeCriterion.title}
               </p>
 
@@ -809,7 +809,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => moveToStep(currentStep + 1)}
-                  className="magnetic inline-flex items-center gap-2 rounded-full bg-dpo-red px-5 py-3 font-display text-sm uppercase tracking-[0.18em] text-white"
+                  className="magnetic inline-flex items-center gap-2 rounded-full bg-brabant-red px-5 py-3 font-display text-sm uppercase tracking-[0.18em] text-white"
                 >
                   Volgende
                   <ArrowRight className="h-4 w-4" />
@@ -818,7 +818,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={exportPdf}
-                  className="magnetic inline-flex items-center gap-2 rounded-full bg-dpo-red px-5 py-3 font-display text-sm uppercase tracking-[0.18em] text-white"
+                  className="magnetic inline-flex items-center gap-2 rounded-full bg-brabant-red px-5 py-3 font-display text-sm uppercase tracking-[0.18em] text-white"
                 >
                   {pdfBusy ? "PDF wordt opgebouwd..." : "Genereer rapport"}
                   <ArrowRight className="h-4 w-4" />
@@ -841,9 +841,9 @@ export default function App() {
 
       <footer className="mx-auto max-w-[1440px] px-4 pb-10 sm:px-6 lg:px-8">
         <div className="rounded-[2rem] border border-white/60 bg-white/70 px-6 py-5 shadow-soft backdrop-blur">
-          <div className="flex flex-col gap-3 text-sm text-dpo-black/72 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 text-sm text-brabant-black/72 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="font-display text-xs uppercase tracking-[0.18em] text-dpo-gray">
+              <p className="font-display text-xs uppercase tracking-[0.18em] text-brabant-gray">
                 Data breach severity assessment
               </p>
               <p className="mt-2">
@@ -857,7 +857,7 @@ export default function App() {
                 href="https://lucasnoronha.com"
                 target="_blank"
                 rel="noreferrer"
-                className="font-display uppercase tracking-[0.12em] text-dpo-red transition hover:text-dpo-black"
+                className="font-display uppercase tracking-[0.12em] text-brabant-red transition hover:text-brabant-black"
               >
                 Lucas Noronha
               </a>

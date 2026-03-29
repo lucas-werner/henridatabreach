@@ -11,14 +11,14 @@ export default function Panel({
     <section
       className={`overflow-hidden rounded-[2.2rem] border p-6 shadow-soft sm:p-8 ${
         dark
-          ? "border-dpo-black bg-dpo-black text-white"
+          ? "border-brabant-black bg-brabant-black text-white"
           : "border-white/60 bg-white/75 backdrop-blur"
       }`}
     >
       <div className="max-w-2xl">
         <p
           className={`font-display text-xs uppercase tracking-[0.28em] ${
-            dark ? "text-white/55" : "text-dpo-red"
+            dark ? "text-white/55" : "text-brabant-red"
           }`}
         >
           {eyebrow}
@@ -28,7 +28,7 @@ export default function Panel({
         </h2>
         <p
           className={`mt-3 max-w-2xl text-sm leading-6 ${
-            dark ? "text-white/74" : "text-dpo-black/70"
+            dark ? "text-white/74" : "text-brabant-black/70"
           }`}
         >
           {description}

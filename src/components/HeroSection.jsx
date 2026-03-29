@@ -6,7 +6,7 @@ export default function HeroSection({ heroRef }) {
     <section
       id="hero"
       ref={heroRef}
-      className="relative min-h-[90vh] overflow-hidden rounded-[2.6rem] border border-white/70 bg-dpo-black text-white shadow-panel"
+      className="relative min-h-[90vh] overflow-hidden rounded-[2.6rem] border border-white/70 bg-brabant-black text-white shadow-panel"
     >
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center opacity-40" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(221,0,0,0.35),transparent_28%),linear-gradient(180deg,rgba(29,29,27,0.08),rgba(29,29,27,0.82)_45%,rgba(29,29,27,0.98)_100%)]" />
@@ -18,7 +18,7 @@ export default function HeroSection({ heroRef }) {
               data-hero-item
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.24em] text-white/80 backdrop-blur"
             >
-              <span className="h-2 w-2 animate-pulse-dot rounded-full bg-dpo-red" />
+              <span className="h-2 w-2 animate-pulse-dot rounded-full bg-brabant-red" />
               ENISA severity methodiek
             </div>
           </div>
@@ -51,7 +51,7 @@ export default function HeroSection({ heroRef }) {
           </h1>
           <div
             data-hero-item
-            className="font-display text-[3.4rem] italic leading-[0.88] text-dpo-red sm:text-[5.4rem] lg:text-[8.2rem]"
+            className="font-display text-[3.4rem] italic leading-[0.88] text-brabant-red sm:text-[5.4rem] lg:text-[8.2rem]"
           >
             ernst.
           </div>
@@ -67,7 +67,7 @@ export default function HeroSection({ heroRef }) {
           <div data-hero-item className="mt-8 flex flex-wrap gap-3">
             <a
               href="#assessment"
-              className="magnetic inline-flex items-center gap-2 rounded-full bg-dpo-red px-6 py-3 font-display text-sm uppercase tracking-[0.18em] text-white shadow-soft"
+              className="magnetic inline-flex items-center gap-2 rounded-full bg-brabant-red px-6 py-3 font-display text-sm uppercase tracking-[0.18em] text-white shadow-soft"
             >
               Start beoordeling
               <ArrowDown className="h-4 w-4" />
